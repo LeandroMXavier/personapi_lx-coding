@@ -36,7 +36,6 @@ public class PersonService {
                 .message("Created person with ID " + savedPerson.getId())
                 .build();
 
-
     }
 
     public List<PersonDTO> listAll(){
@@ -47,13 +46,20 @@ public class PersonService {
     }
 
     public PersonDTO findById(Long id) throws PersonNotFoundExecption {
-       Person person = personRepository.findById(id)
-               .orElseThrow(() -> new PersonNotFoundExecption(id));
-        /* Optional<Person> optionalPerson = personRepository.findById(id);
-        if (optionalPerson.isEmpty()){
-            throw new PersonNotFoundExecption(id);
-        }*/
-        //return personMapper.toDTO(optionalPerson.get());
-        return personMapper.toDTO(person);
+       Person person = verifyIfExists(id);
+
+       return personMapper.toDTO(person);
     }
+
+    public void delete(Long id) throws PersonNotFoundExecption {
+        verifyIfExists(id);
+
+        personRepository.deleteById(id);
+    }
+
+    private Person verifyIfExists(Long id) throws PersonNotFoundExecption {
+        return personRepository.findById(id)
+                .orElseThrow(() -> new PersonNotFoundExecption(id));
+    }
+
 }
