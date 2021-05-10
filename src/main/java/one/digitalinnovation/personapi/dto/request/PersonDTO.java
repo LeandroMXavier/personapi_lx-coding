@@ -25,7 +25,7 @@ public class PersonDTO {
 
     @NotEmpty
     @Size(min = 2, max = 100)
-    private String LastName;
+    private String lastName;
 
 
     @NotEmpty
@@ -37,5 +37,4 @@ public class PersonDTO {
     @Valid
     @NotEmpty
     private List<PhoneDTO> phones;
-
 }
