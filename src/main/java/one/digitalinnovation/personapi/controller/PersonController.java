@@ -31,6 +31,7 @@ public class PersonController {
         return personService.createPerson(personDTO);
     }
 
+    @GetMapping
     public List<PersonDTO> listAll(){
         return personService.listAll();
     }
@@ -39,6 +40,12 @@ public class PersonController {
     public PersonDTO finById(@PathVariable Long id) throws PersonNotFoundExecption {
         return personService.findById(id);
     }
+
+    @PutMapping("/{id}")
+    public MessageResponseDTO updateById(@PathVariable Long id, @RequestBody PersonDTO personDTO) throws PersonNotFoundExecption {
+        return personService.updateById(id, personDTO);
+    }
+
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
