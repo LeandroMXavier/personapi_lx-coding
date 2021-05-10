@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import one.digitalinnovation.personapi.dto.response.MessageResponseDTO;
 import one.digitalinnovation.personapi.dto.request.PersonDTO;
 
-import one.digitalinnovation.personapi.exception.PersonNotFoundExecption;
+import one.digitalinnovation.personapi.exception.PersonNotFoundException;
 import one.digitalinnovation.personapi.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,19 +34,19 @@ public class PersonController {
     }
 
     @GetMapping("/{id}")
-    public PersonDTO finById(@PathVariable Long id) throws PersonNotFoundExecption {
+    public PersonDTO finById(@PathVariable Long id) throws PersonNotFoundException {
         return personService.findById(id);
     }
 
     @PutMapping("/{id}")
-    public MessageResponseDTO updateById(@PathVariable Long id, @RequestBody PersonDTO personDTO) throws PersonNotFoundExecption {
+    public MessageResponseDTO updateById(@PathVariable Long id, @RequestBody PersonDTO personDTO) throws PersonNotFoundException {
         return personService.updateById(id, personDTO);
     }
 
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deletedById(@PathVariable Long id) throws PersonNotFoundExecption {
+    public void deletedById(@PathVariable Long id) throws PersonNotFoundException {
         personService.delete(id);
     }
 }
